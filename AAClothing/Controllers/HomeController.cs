@@ -63,6 +63,49 @@ namespace AAClothing.Controllers
             return View(products);
         }
 
+        public IActionResult productdetails( int id)
+        {
+            Productmodel product = GetProductbyId(id);
+            product.Productid = id;
+            return View(product);
+        }
+
+        public Productmodel GetProductbyId(int productId)
+        {
+            string connectionString = "Server=DESKTOP-JA9OFG0\\SQLEXPRESS;Database=AAClothing;Trusted_Connection=True;";
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand sqlCommand = new SqlCommand("SELECT * FROM Product WHERE @productId = productId", connection))
+                {
+                    sqlCommand.CommandType = CommandType.Text;
+                    sqlCommand.Parameters.AddWithValue("@productId", productId);
+                    using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                    {
+
+                        if (reader.HasRows)
+                        {
+                            Productmodel prod = new Productmodel(productId);
+                            while (reader.Read())
+                            {
+                                prod.Productnaam = reader["ProductNaam"].ToString();
+                                prod.Productprijs = (double)reader["ProductPrijs"];
+
+                            }
+                            return prod;
+                        }
+                        else
+                        {
+                            return new Productmodel(-1);
+                        }
+                    }
+                }
+            }
+        }
+
+
+
         public IActionResult Privacy()
         {
             return View();
