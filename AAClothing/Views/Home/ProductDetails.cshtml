@@ -21,7 +21,26 @@
     </div>
 
     <div class="col-md-3 col-md-offset-1" style="margin-top:40px;">
-        <button type="button" class="btn btn-primary btn-lg btn-block" id="addButton" style="background-color:forestgreen"><i class="fas fa-cart-plus"></i>  Add To Cart</button>
+        <button type="button" class="btn btn-primary btn-lg btn-block" id="addButton" style="background-color:black"><i class="fa fa-plus"></i>  Add To Cart</button>
     </div>
 </div>
 
+@section scripts
+    {
+    <script>
+    $('#addButton').click(function () {
+        var x = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Add", "Cart")',
+                contentType: 'application/json',
+                dataType: 'JSON',
+                data: JSON.stringify(x),
+                success: function (data) {
+                    $("#shoppingCart span:nth-child(2)").text(`${data}`);
+                }
+            });
+        });
+    </script>
+}

@@ -15,20 +15,18 @@ namespace AAClothing.Models
         public int ProductVoorraad { get; set; }
         public byte[] ProductImage { get; set; }
 
-        public Productmodel (int productId, string productNaam, double productPrijs, int productVoorraad, byte[] productImage)
+        public Productmodel (int productId, string productNaam, double productPrijs, int productVoorraad, string productBeschrijving,byte[] productImage)
         {
             Productid = productId;
             Productnaam = productNaam;
+            Productbeschrijving = productBeschrijving;
             Productprijs = productPrijs;
             ProductVoorraad = productVoorraad;
             ProductImage = productImage;
 
-        }
+        } 
 
-        public Productmodel(int productId)
-        {
-            Productid = productId;
-        }
+        public Productmodel(int productId) => Productid = productId;
 
         public Productmodel()
         {

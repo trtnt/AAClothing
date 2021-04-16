@@ -1,0 +1,32 @@
+﻿
+@model List<Winkelwagenmodel>
+
+
+
+
+<div class="container cartStyle">
+    <div class="row">
+       
+        <div class="col-md-2">Name:</div>
+        <div class="col-md-2">Quantity:</div>
+        <div class="col-md-2">Price:</div>
+    </div>
+    @if (Model == null)
+    {
+        <span>no items found</span>
+    }
+    else
+    {
+
+
+    @foreach (Winkelwagenmodel cp in Model)
+    {
+<div class="row" >
+    <div class="col-md-2">@cp.Naam</div>
+    <div class="col-md-2">@cp.Aantal</div>
+    <div class="col-md-2">@(cp.Prijs * cp.Aantal)</div>
+    <div class="col-md-2">@(cp.Totaalprijs += cp.Aantal)</div>
+</div>
+    }
+    }
+</div>

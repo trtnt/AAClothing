@@ -47,6 +47,7 @@ namespace AAClothing.Controllers
                         Productid = (int)dr["Productid"],
                         Productnaam = dr["Productnaam"].ToString(),
                         Productprijs = (double)dr["Productprijs"],
+                        Productbeschrijving = dr["Productbeschrijving"].ToString()
                         
                         //ProductImage = (byte[])dr["ProductImage"],
 
@@ -80,7 +81,7 @@ namespace AAClothing.Controllers
                 using (SqlCommand sqlCommand = new SqlCommand("SELECT * FROM Product WHERE @productId = productId", connection))
                 {
                     sqlCommand.CommandType = CommandType.Text;
-                    sqlCommand.Parameters.AddWithValue("@productId", productId);
+                    sqlCommand.Parameters.AddWithValue("@Productid", productId);
                     using (SqlDataReader reader = sqlCommand.ExecuteReader())
                     {
 
@@ -90,7 +91,8 @@ namespace AAClothing.Controllers
                             while (reader.Read())
                             {
                                 prod.Productnaam = reader["ProductNaam"].ToString();
-                                prod.Productprijs = (double)reader["ProductPrijs"];
+                                prod.Productprijs = (double)reader["Productprijs"];
+                                prod.Productbeschrijving = reader["Productbeschrijving"].ToString();
 
                             }
                             return prod;

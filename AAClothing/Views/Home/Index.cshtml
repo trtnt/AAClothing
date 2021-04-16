@@ -23,12 +23,13 @@
                         <h2>@product.Productnaam</h2>
                         <p class="price">€@product.Productprijs</p>
                         <p>@product.Productbeschrijving</p>
-                        <p><button>Toevoegen aan winkelwagen</button></p>
+                        <a type="button" class="btn btn-dark btn-lg buttonCustom btn-block add-to-cart" style="text-align:center" onclick="cartHandler(@Newtonsoft.Json.JsonConvert.SerializeObject(product))"><i class="fas fa-cart-plus" style="width:15%"></i>  Add To Cart</a>
+
                     </div>
                 </div>
-                </a>
-                }
-        </div>
+            </a>
+        }
+    </div>
 </div>
 
 <hr />
@@ -71,3 +72,22 @@
             opacity: 0.7;
         }
 </style>
+
+
+@section scripts {}
+<script type="text/javascript">
+
+    function cartHandler(x) {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Add", "Cart")',
+                contentType: 'application/json',
+                dataType: 'JSON',
+                data: JSON.stringify(x),
+                success: function (data) {
+                    $("#shoppingCart span:nth-child(2)").text(`${data}`);
+                }
+            });
+        }
+
+</script>
